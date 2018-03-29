@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Simplesys</string>
+    <string name="simpli_sys">欢迎使用简易只能问答系统</string>
+    <string name="login">登录</string>
+    <string name="login_name_hint">请输入用户名</string>
+    <string name="login_password_hint">请输入密码</string>
+    <string name="register_name_hint">请输入用户名(4-6位)</string>
+    <string name="register_password_hint">请输入密码(6-11位)</string>
+    <string name="confirm_password_hint">请确认密码</string>
+    <string name="register">注册</string>
+    <string name="reset_password">重置密码</string>
+    <string name="send">发送</string>
+</resources>
