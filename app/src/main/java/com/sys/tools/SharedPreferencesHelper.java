@@ -70,4 +70,30 @@ public class SharedPreferencesHelper {
         return mSharedPreferences.getString("password" , "");
     }
 
+    /**
+     * 记住密码
+     * @param b
+     */
+    public void setRememberPassword(boolean b){
+        mEditor.putBoolean("Rpassword" ,b );
+        mEditor.commit();
+    }
+
+    public boolean getRememberPassword(){
+        return mSharedPreferences.getBoolean("Rpassword" , true); // 默认记住
+    }
+
+    /**
+     * 免登录
+     * @param b
+     */
+    public void setIsLogonFree(boolean b){
+        mEditor.putBoolean("IsLogonFree" ,b );
+        mEditor.commit();
+    }
+
+    public boolean getIsLogonFree(){
+        return mSharedPreferences.getBoolean("IsLogonFree" , false); // 默认否
+    }
+
 }

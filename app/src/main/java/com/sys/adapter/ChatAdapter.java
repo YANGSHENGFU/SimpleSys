@@ -49,6 +49,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseViewHolder
         notifyDataSetChanged();
     }
 
+    /**
+     * 清空聊天记录
+     */
+    public void emptyChat(){
+        datas.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         return datas.get(position).getType();

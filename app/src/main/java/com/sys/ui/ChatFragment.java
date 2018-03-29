@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -78,6 +79,10 @@ public class ChatFragment extends Fragment implements EditText.OnFocusChangeList
     private Request mRequest ;
     private ImageView settingImg ;
 
+    public static Handler mHandler ;
+    public static int FINSHACTION = 1003 ;
+    public static int EMPTYCHAT = 1004 ;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -119,6 +124,17 @@ public class ChatFragment extends Fragment implements EditText.OnFocusChangeList
                 }
             }
         }).start();
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(android.os.Message msg) {
+                super.handleMessage(msg);
+                if(msg.what == FINSHACTION ){
+                    getActivity().finish();
+                }else if(msg.what == EMPTYCHAT){
+                    mAapter.emptyChat();
+                }
+            }
+        };
     }
 
     /**

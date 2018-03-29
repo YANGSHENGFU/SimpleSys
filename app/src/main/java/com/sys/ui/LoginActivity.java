@@ -38,7 +38,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     protected void onResume() {
         super.onResume();
         mNameEt.setText(spHelper.getName());
-        mPasswordEt.setText(spHelper.getPassword());
+        if(spHelper.getRememberPassword()){
+            mPasswordEt.setText(spHelper.getPassword());
+        }else{
+            mPasswordEt.setText("");
+        }
+
     }
 
     /**

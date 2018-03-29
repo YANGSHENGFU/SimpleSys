@@ -50,8 +50,9 @@
            android:layout_height="match_parent"/>
 
        <com.sys.view.SwitchView
-           android:layout_width="50dp"
-           android:layout_height="25dp"
+           android:id="@+id/password_sv"
+           android:layout_width="60dp"
+           android:layout_height="30dp"
            android:layout_alignParentEnd="true"
            android:layout_centerVertical="true"
            android:layout_marginEnd="17dp" />
@@ -79,14 +80,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
-        <ImageView
-            android:clickable="true"
+        <com.sys.view.SwitchView
+            android:id="@+id/login_sv"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/setting_image_background"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:layout_marginEnd="17dp" />
 
     </RelativeLayout>
 
@@ -98,6 +98,7 @@
         android:layout_width="match_parent"/>
 
     <RelativeLayout
+        android:background="@drawable/setup_line_background"
         android:id="@+id/empty_chat_records"
         android:orientation="horizontal"
         android:layout_height="52dp"
@@ -117,7 +118,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/setting_image_background"
+            android:background="@drawable/empty_chat_img"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
 
@@ -130,5 +131,58 @@
         android:layout_height="0.3dp"
         android:layout_width="match_parent"/>
 
+    <RelativeLayout
+        android:background="@drawable/setup_line_background"
+        android:id="@+id/reset_password"
+        android:orientation="horizontal"
+        android:layout_height="52dp"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:textSize="16sp"
+            android:textColor="@color/color_000000_0.5"
+            android:text="重置密码"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/empty_chat_img"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/color_f6f6f6"
+        android:layout_height="0.3dp"
+        android:layout_width="match_parent"/>
+
+    <RelativeLayout
+        android:layout_marginTop="100dp"
+        android:background="@drawable/setup_line_background"
+        android:id="@+id/login_out"
+        android:orientation="horizontal"
+        android:layout_height="52dp"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:background="@color/color_f6f6f6"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/color_ee157cf8"
+            android:text="退出登录"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.sys.R;
+import com.sys.tools.SharedPreferencesHelper;
 
 /**
  * 启动界面
@@ -29,7 +30,7 @@ public class WelcomeActivity extends Activity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if(msg.what == MESSAGETPYEO){
-                    if(true){
+                    if(!SharedPreferencesHelper.getInstance(WelcomeActivity.this).getIsLogonFree()){
                         startActivity( new Intent(WelcomeActivity.this,LoginActivity.class));
                     }else{
                         startActivity( new Intent(WelcomeActivity.this,HomeActivity.class));

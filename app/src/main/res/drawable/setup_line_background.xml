@@ -3,10 +3,21 @@
 
     <item android:state_pressed="true">
 
+        <shape android:shape="rectangle">
+
+            <solid android:color="@color/color_f6f6f6"/>
+            <corners android:bottomLeftRadius="5dp" android:bottomRightRadius="5dp"/>
+
+        </shape>
+
     </item>
 
-    <item android:drawable="@color/color_ffffff">
+    <item >
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_ffffff"/>
+            <corners android:bottomLeftRadius="5dp" android:bottomRightRadius="5dp"/>
 
+        </shape>
     </item>
 
 </selector>
