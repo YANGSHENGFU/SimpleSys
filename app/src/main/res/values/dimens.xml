@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="login_tv_size">16sp</dimen>
-    <dimen name="name_et_size">16sp</dimen>
-    <dimen name="send_tv_size">16sp</dimen>
-    <dimen name="msg_tv_size">16sp</dimen>
-    <dimen name="msg_datetv_size">12sp</dimen>
-</resources>
