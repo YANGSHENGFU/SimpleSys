@@ -56,6 +56,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         mLoginTv = findViewById(R.id.login_tv);
         mRegisterTv.setOnClickListener(this);
         mLoginTv.setOnClickListener(this);
+        if(TextUtils.isEmpty(spHelper.getName())){
+            mRegisterTv.setVisibility(View.VISIBLE);
+        }else{
+            mRegisterTv.setVisibility(View.GONE);
+        }
     }
 
     @Override

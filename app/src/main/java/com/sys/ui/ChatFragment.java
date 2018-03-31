@@ -1,10 +1,16 @@
 package com.sys.ui;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,10 +85,15 @@ public class ChatFragment extends Fragment implements EditText.OnFocusChangeList
     private OkHttpClient okHttpClient = new OkHttpClient();
     private Request mRequest ;
     private ImageView settingImg ;
+    private RelativeLayout noNet ;
+
+    private NetworkConnectChangedReceiver mNetworkConnectChangedReceiver ;
 
     public static Handler mHandler ;
     public static int FINSHACTION = 1003 ;
     public static int EMPTYCHAT = 1004 ;
+
+    private boolean isNoNet = true ;
 
     @Nullable
     @Override
@@ -96,13 +108,21 @@ public class ChatFragment extends Fragment implements EditText.OnFocusChangeList
         inputEt = mView.findViewById(R.id.input_et);
         sendTv = mView.findViewById(R.id.send_tv);
         settingImg = mView.findViewById(R.id.setting_img);
+        noNet = mView.findViewById(R.id.no_net);
         inputEt.addTextChangedListener(this);
         sendTv.setOnClickListener(this);
+        noNet.setOnClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAapter = new ChatAdapter(getContext());
         mRecyclerView.setAdapter(mAapter);
         initLister();
         intiData();
+        mNetworkConnectChangedReceiver = new NetworkConnectChangedReceiver() ;
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        filter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
+        filter.addAction("android.net.wifi.STATE_CHANGE");
+        getActivity().registerReceiver( mNetworkConnectChangedReceiver ,filter);
     }
 
     /**
@@ -191,6 +211,10 @@ public class ChatFragment extends Fragment implements EditText.OnFocusChangeList
                     Toast.makeText(getContext(),"发送的内容不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(isNoNet){
+                    Toast.makeText(getContext(),"当前无网络，请检查网络设置", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 // 网络请求
                 Message message = new Message();
                 message.setContent(inputEt.getText().toString());
@@ -212,6 +236,9 @@ public class ChatFragment extends Fragment implements EditText.OnFocusChangeList
                 break;
             case R.id.setting_img:
                 startActivity( new Intent( getActivity() , SetUpActivity.class));
+                break;
+            case R.id.no_net:
+                startActivity( new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
                 break;
         }
 
@@ -325,5 +352,62 @@ public class ChatFragment extends Fragment implements EditText.OnFocusChangeList
                 }
             };
         }.start();
+    }
+
+    class NetworkConnectChangedReceiver extends BroadcastReceiver{
+        private static final String TAG = "xujun";
+        public static final String TAG1 = "xxx";
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(intent.getAction())) {
+                int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
+                Log.e(TAG1, "wifiState" + wifiState);
+                switch (wifiState) {
+                    case WifiManager.WIFI_STATE_DISABLED:
+                        break;
+                    case WifiManager.WIFI_STATE_DISABLING:
+                        break;
+                    case WifiManager.WIFI_STATE_ENABLING:
+                        break;
+                    case WifiManager.WIFI_STATE_ENABLED:
+                        noNet.setVisibility(View.GONE);
+                        break;
+                    case WifiManager.WIFI_STATE_UNKNOWN:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            // 这个监听网络连接的设置，包括wifi和移动数据的打开和关闭。.
+            // 最好用的还是这个监听。wifi如果打开，关闭，以及连接上可用的连接都会接到监听。见log
+            // 这个广播的最大弊端是比上边两个广播的反应要慢，如果只是要监听wifi，我觉得还是用上边两个配合比较合适
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+                ConnectivityManager manager = (ConnectivityManager) context
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = manager.getActiveNetworkInfo();
+                if (activeNetwork != null) { // connected to the internet
+                    if (activeNetwork.isConnected()) {
+                        noNet.setVisibility(View.GONE);
+                        isNoNet = false ;
+                        if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                            // connected to wifi
+                            Log.e(TAG, "当前WiFi连接可用 ");
+                        } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                            // connected to the mobile provider's data plan
+                            Log.e(TAG, "当前移动网络连接可用 ");
+                        }
+                    } else {
+                        isNoNet = true ;
+                        noNet.setVisibility(View.VISIBLE);
+                        Log.e(TAG, "当前没有网络连接，请确保你已经打开网络 ");
+                    }
+
+                } else {   // not connected to the internet
+                    noNet.setVisibility(View.VISIBLE);
+                    isNoNet = true ;
+                }
+            }
+        }
     }
 }

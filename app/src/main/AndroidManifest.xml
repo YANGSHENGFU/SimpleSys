@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--允许读取网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!--允许读取wifi网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -13,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+
 
         <!--启动界面-->
         <activity android:name=".ui.WelcomeActivity">
@@ -30,6 +35,8 @@
         <activity android:name=".ui.HomeActivity"/>
         <!--设置界面-->
         <activity android:name=".ui.SetUpActivity"/>
+        <!--重置密码-->
+        <activity android:name=".ui.ResetPasswordActivity"/>
 
     </application>
 

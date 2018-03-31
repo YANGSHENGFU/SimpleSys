@@ -30,11 +30,45 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleview"
+    <RelativeLayout
         android:layout_weight="1"
         android:layout_height="0dp"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+
+        <RelativeLayout
+            android:visibility="visible"
+            android:id="@+id/no_net"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:paddingLeft="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/color_ffffff"
+                android:background="@color/color_fd1b46_0.33"
+                android:gravity="center_vertical"
+                android:text="@string/nonet"
+                android:id="@+id/no_net_tv"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"/>
+
+            <ImageView
+                android:clickable="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/empty_chat_img"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <View
         android:background="@color/color_000000_0.4"

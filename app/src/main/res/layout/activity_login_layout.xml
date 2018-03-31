@@ -66,6 +66,7 @@
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/login_tv"
         android:layout_marginTop="10dp"
         app:layout_constraintRight_toRightOf="parent"

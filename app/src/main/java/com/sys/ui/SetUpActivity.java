@@ -1,6 +1,7 @@
 package com.sys.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -102,6 +103,7 @@ public class SetUpActivity extends Activity implements View.OnClickListener ,Swi
                 }
                 break;
             case R.id.reset_password:
+                startActivity( new Intent( this , ResetPasswordActivity.class));
                 break;
             case R.id.login_out:
                 ChatFragment.mHandler.sendEmptyMessage(ChatFragment.FINSHACTION);

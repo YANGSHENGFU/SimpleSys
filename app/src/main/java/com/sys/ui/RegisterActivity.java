@@ -71,7 +71,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.toString().length()>11){
-                    Toast.makeText(RegisterActivity.this , "密码不能高于4位" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this , "密码不能高于11位" , Toast.LENGTH_SHORT).show();
                     mPasswordEt.setText(s.subSequence(0,11));
                 }
             }
